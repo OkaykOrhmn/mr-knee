@@ -32,7 +32,36 @@ export const metadata: Metadata = {
     siteName: "آقای زانو",
     locale: "fa_IR",
     type: "website",
+    images: [
+      {
+        url: "https://mrknee.ir/hero-portrait.png",
+        width: 1200,
+        height: 630,
+        alt: "محمد جمالی - آقای زانو",
+      },
+    ],
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
+
+  verification: {
+    google: "H5a6-8e2GAUpyRvnrkDOrRMKjrUe7fVMMmHUj2dGIsw",
+  },
+
   alternates: {
     canonical: "https://mrknee.ir",
   },

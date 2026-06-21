@@ -7,12 +7,29 @@ import { motion, AnimatePresence } from "framer-motion";
 import mjLogo from "@/assets/images/mj-logo.png";
 
 export const navItems = [
+  // { label: "صفحه اصلی", href: "#home" },
+  // { label: "چرا Mr. Knee؟", href: "#why-us" },
+  { label: "خدمات تخصصی", href: "#services" },
+  { label: "سوابق حرفه‌ای", href: "#experiences" },
+  { label: "نمونه کار‌ها", href: "#works" },
+  // { label: "کتاب من", href: "#book" },
+  { label: "فرآیند درمان", href: "#treatment-process" },
+  { label: "بیماری‌های قابل درمان", href: "#treatable-conditions" },
+  // { label: "سوالات متداول", href: "#faq" },
+  { label: "آخرین مقالات", href: "#articles" },
+];
+
+export const navItemsMobile = [
   { label: "صفحه اصلی", href: "#home" },
   { label: "چرا Mr. Knee؟", href: "#why-us" },
-  { label: "سوابق حرفه‌ای", href: "#experiences" },
   { label: "خدمات تخصصی", href: "#services" },
-  { label: "کتاب من", href: "#book" },
+  { label: "سوابق حرفه‌ای", href: "#experiences" },
   { label: "نمونه کار‌ها", href: "#works" },
+  { label: "کتاب من", href: "#book" },
+  { label: "فرآیند درمان", href: "#treatment-process" },
+  { label: "بیماری‌های قابل درمان", href: "#treatable-conditions" },
+  { label: "سوالات متداول", href: "#faq" },
+  { label: "آخرین مقالات", href: "#articles" },
 ];
 
 export default function Header() {
@@ -161,7 +178,7 @@ export default function Header() {
                 {/* Drawer Navigation */}
                 <nav className="flex-1 overflow-y-auto px-3 py-6">
                   <ul className="space-y-1">
-                    {navItems.map((n, index) => (
+                    {navItemsMobile.map((n, index) => (
                       <motion.li
                         key={n.href}
                         initial={{ opacity: 0, x: 20 }}
