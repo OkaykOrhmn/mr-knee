@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://mrknee.ir/hero-portrait.png",
+        url: "https://mrknee.ir/hero-portrait.webp",
         width: 1200,
         height: 630,
         alt: "محمد جمالی - آقای زانو",

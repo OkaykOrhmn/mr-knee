@@ -3,12 +3,13 @@
 import Image from "next/image";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { motion } from "framer-motion";
-import mjLogo from "@/assets/images/mj-logo.png";
 import { navItems } from "./Header";
-import BaleIcon from "@/assets/icons/bale.png";
+import BaleIcon from "@/assets/icons/bale.webp";
 import { TelegramIcon } from "@/assets/icons/Telegram";
 import { WhatsAppIcon } from "@/assets/icons/WhatsApp";
 import { InstagramIcon } from "@/assets/icons/Instagram";
+
+const mjLogo = "/mj-logo.webp";
 
 export default function Footer() {
   return (
@@ -72,8 +73,12 @@ export default function Footer() {
               <a href="tel:+989132001925" className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-accent" /> ۹۸۹۱۳-۲۰۰-۱۹۲۵+
               </a>
-              <a href="mailto:" className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-accent" /> hello@bosscoach.com
+              <a
+                href="mailto:mohammad.jamali@mrknee.com"
+                className="flex items-center gap-2"
+              >
+                <Mail className="h-4 w-4 text-accent" />{" "}
+                mohammad.jamali@mrknee.com
               </a>
               <li className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 text-accent" /> اصفهان ، نصف جهان
@@ -125,12 +130,12 @@ export default function Footer() {
                 <InstagramIcon />
               </a>
             </div>
-            <div className="mt-6 rounded-xl bg-primary/20 p-4 text-xs leading-6 text-primary-foreground/70">
+            {/* <div className="mt-6 rounded-xl bg-primary/20 p-4 text-xs leading-6 text-primary-foreground/70">
               نماد و مجوز الکترونیک <br />
               <span className="font-bold text-primary-foreground">
                 e-namad · samandehi
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
 

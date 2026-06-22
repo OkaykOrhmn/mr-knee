@@ -1,6 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import { FaEnvelope, FaPhone } from "react-icons/fa";
+import JsonLd from "@/components/JsonLd";
 import {
   ArrowLeft,
   CheckCircle2,
@@ -16,10 +20,7 @@ import {
   Star,
   Calendar,
 } from "lucide-react";
-import { motion } from "framer-motion";
-import { useState } from "react";
-import { FaEnvelope, FaPhone } from "react-icons/fa";
-
+import { AnimatePresence, motion } from "framer-motion";
 import {
   fadeUp,
   fadeRightRTL,
@@ -28,26 +29,26 @@ import {
   zoomIn,
 } from "@/lib/animations";
 
-// تصاویر
-import heroPortrait from "@/assets/images/hero-portrait.png";
-import articleInnovation from "@/assets/images/article-innovation.jpg";
-import articleSkills from "@/assets/images/article-skills.jpg";
-import articleStrategy from "@/assets/images/article-strategy.jpg";
-import bookCover from "@/assets/images/book.png";
-import sportsDoctor from "@/assets/images/sports-doctor.jpeg";
-import strengthCoach from "@/assets/images/strength-coach.jpeg";
-import universityProfessor from "@/assets/images/university-professor.jpeg";
-import rehabSpecialist from "@/assets/images/rehab-specialist.jpeg";
-import nationalTeamCoach from "@/assets/images/national-team-coach.jpeg";
-import footballCoach from "@/assets/images/football-coach.jpeg";
-import handballPlayer from "@/assets/images/handball-player.jpeg";
-import nationalTeamPlayer from "@/assets/images/national-team-player.jpeg";
-import BaleIcon from "@/assets/icons/bale.png";
+import BaleIcon from "@/assets/icons/bale.webp";
 import { TelegramIcon } from "@/assets/icons/Telegram";
 import { WhatsAppIcon } from "@/assets/icons/WhatsApp";
 import { InstagramIcon } from "@/assets/icons/Instagram";
-import JsonLd from "@/components/JsonLd";
-import Link from "next/link";
+
+// تصاویر
+//TODO make images webp
+const heroPortrait = "/hero-portrait.webp";
+const articleInnovation = "/article-innovation.webp";
+const articleStrategy = "/article-strategy.webp";
+const articleSkills = "/article-skills.webp";
+const bookCover = "/book.webp";
+const sportsDoctor = "/sports-doctor.webp";
+const strengthCoach = "/strength-coach.webp";
+const universityProfessor = "/university-professor.webp";
+const rehabSpecialist = "/rehab-specialist.webp";
+const nationalTeamCoach = "/national-team-coach.webp";
+const footballCoach = "/football-coach.webp";
+const handballPlayer = "/handball-player.webp";
+const nationalTeamPlayer = "/national-team-player.webp";
 
 // ============================================================
 // داده‌ها
@@ -384,7 +385,7 @@ function HeroSection() {
                 alt: "اینستاگرام",
               },
               {
-                href: "mailto:youremail@example.com",
+                href: "mailto:mohammad.jamali@mrknee.com",
                 icon: FaEnvelope,
                 alt: "ایمیل",
               },
@@ -1132,12 +1133,10 @@ function CTASection() {
 
 // --- FAQ ---
 function FAQSection() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openFaqs, setOpenFaqs] = useState<number[]>([]);
 
   return (
-    <section
-    id="faq"
-    className="bg-[color:var(--color-brand-soft)]/50 py-20">
+    <section id="faq" className="bg-[color:var(--color-brand-soft)]/50 py-20">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-10">
         <div className="mb-12 text-center">
           <div className="mb-3 flex items-center justify-center gap-3">
@@ -1161,24 +1160,43 @@ function FAQSection() {
             <motion.div
               key={index}
               variants={fadeUp}
-              className="rounded-2xl bg-card shadow-sm ring-1 ring-border transition hover:shadow-md"
+              className="rounded-2xl bg-card shadow-sm ring-1 ring-border  cursor-pointer! transition-all  hover:shadow-md "
             >
               <button
-                onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                className="flex w-full items-center justify-between p-6 text-right"
+                onClick={() => {
+                  if (openFaqs.includes(index)) {
+                    setOpenFaqs(openFaqs.filter((i) => i !== index));
+                  } else {
+                    setOpenFaqs((prev) => [...prev, index]);
+                  }
+                }}
+                className="flex w-full items-center justify-between p-6 text-right cursor-pointer!"
               >
                 <span className="text-lg font-bold">{item.q}</span>
-                <ChevronDown
-                  className={`h-5 w-5 text-primary transition-transform ${
-                    openFaq === index ? "rotate-180" : ""
-                  }`}
-                />
+                <motion.span
+                  initial={false}
+                  animate={{ rotate: openFaqs.includes(index) ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="inline-block"
+                >
+                  <ChevronDown className="h-5 w-5 text-primary" />
+                </motion.span>
               </button>
-              {openFaq === index && (
-                <div className="px-6 pb-6 text-base leading-7 text-muted-foreground">
-                  {item.a}
-                </div>
-              )}
+              <AnimatePresence initial={false}>
+                {openFaqs.includes(index) && (
+                  <motion.div
+                    key="content"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.35, ease: [0.25, 0.8, 0.25, 1] }}
+                    style={{ overflow: "hidden" }}
+                    className="px-6 text-base leading-7 text-muted-foreground"
+                  >
+                    <div className="pt-2 pb-6">{item.a}</div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           ))}
         </motion.div>
@@ -1190,9 +1208,7 @@ function FAQSection() {
 // --- ARTICLES ---
 function ArticlesSection() {
   return (
-    <section
-    id="articles"
-    className="bg-background py-20">
+    <section id="articles" className="bg-background py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
           <div>
@@ -1359,11 +1375,11 @@ function ContactSection() {
             <span>۰۹۱۳۲۰۰۱۹۲۵</span>
           </Link>
           <Link
-            href="mailto:youremail@example.com"
+            href="mailto:mohammad.jamali@mrknee.com"
             className="flex items-center gap-2"
           >
             <Mail className="h-5 w-5 text-primary" />
-            <span>info@mrknee.ir</span>
+            <span>mohammad.jamali@mrknee.com</span>
           </Link>
           <div className="flex items-center gap-2">
             <MapPin className="h-5 w-5 text-primary" />

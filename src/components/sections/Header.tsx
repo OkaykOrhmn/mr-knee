@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import mjLogo from "@/assets/images/mj-logo.png";
+
+const mjLogo = "/mj-logo.webp";
 
 export const navItems = [
   // { label: "صفحه اصلی", href: "#home" },
