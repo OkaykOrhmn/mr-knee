@@ -90,7 +90,7 @@ export default function Footer() {
             <h4 className="mb-4 text-sm font-bold">شبکه‌های اجتماعی</h4>
             <div className="flex items-center gap-3">
               <a
-                href="https://ble.ir/"
+                href="https://ble.ir/mohammad_jamali14"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="grid h-10 w-10 p-2.5 place-items-center rounded-full bg-primary/30 text-primary-foreground transition hover:bg-accent hover:text-accent-foreground"

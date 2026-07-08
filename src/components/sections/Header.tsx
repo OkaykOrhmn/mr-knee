@@ -4,33 +4,34 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 const mjLogo = "/mj-logo.webp";
 
 export const navItems = [
   // { label: "صفحه اصلی", href: "#home" },
   // { label: "چرا Mr. Knee؟", href: "#why-us" },
-  { label: "خدمات تخصصی", href: "#services" },
-  { label: "سوابق حرفه‌ای", href: "#experiences" },
-  { label: "نمونه کار‌ها", href: "#works" },
+  { label: "خدمات تخصصی", href: "/#services" },
+  { label: "سوابق حرفه‌ای", href: "/#experiences" },
+  { label: "نمونه کار‌ها", href: "/works" },
   // { label: "کتاب من", href: "#book" },
-  { label: "فرآیند درمان", href: "#treatment-process" },
-  { label: "بیماری‌های قابل درمان", href: "#treatable-conditions" },
+  { label: "فرآیند درمان", href: "/#treatment-process" },
+  { label: "بیماری‌های قابل درمان", href: "/#treatable-conditions" },
   // { label: "سوالات متداول", href: "#faq" },
-  { label: "آخرین مقالات", href: "#articles" },
+  { label: "آخرین مقالات", href: "/#articles" },
 ];
 
 export const navItemsMobile = [
-  { label: "صفحه اصلی", href: "#home" },
-  { label: "چرا Mr. Knee؟", href: "#why-us" },
-  { label: "خدمات تخصصی", href: "#services" },
-  { label: "سوابق حرفه‌ای", href: "#experiences" },
-  { label: "نمونه کار‌ها", href: "#works" },
-  { label: "کتاب من", href: "#book" },
-  { label: "فرآیند درمان", href: "#treatment-process" },
-  { label: "بیماری‌های قابل درمان", href: "#treatable-conditions" },
-  { label: "سوالات متداول", href: "#faq" },
-  { label: "آخرین مقالات", href: "#articles" },
+  { label: "صفحه اصلی", href: "/#home" },
+  { label: "چرا Mr. Knee؟", href: "/#why-us" },
+  { label: "خدمات تخصصی", href: "/#services" },
+  { label: "سوابق حرفه‌ای", href: "/#experiences" },
+  { label: "نمونه کار‌ها", href: "/works" },
+  { label: "کتاب من", href: "/#book" },
+  { label: "فرآیند درمان", href: "/#treatment-process" },
+  { label: "بیماری‌های قابل درمان", href: "/#treatable-conditions" },
+  { label: "سوالات متداول", href: "/#faq" },
+  { label: "آخرین مقالات", href: "/#articles" },
 ];
 
 export default function Header() {
@@ -75,7 +76,7 @@ export default function Header() {
             <Menu className="h-5 w-5" />
           </button>
 
-          <a href="#home" className="flex items-center gap-2">
+          <Link href="/#home" className="flex items-center gap-2">
             <motion.div
               initial={{ rotate: -8, scale: 0.8, opacity: 0 }}
               animate={{ rotate: 0, scale: 1, opacity: 1 }}
@@ -98,7 +99,7 @@ export default function Header() {
                 Dr Mohammad jamali
               </div>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden items-center gap-7 lg:flex">

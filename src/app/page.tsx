@@ -1,12 +1,13 @@
 "use client";
 
+import {   works } from "@/data/works";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { FaEnvelope, FaPhone } from "react-icons/fa";
 import JsonLd from "@/components/JsonLd";
 import {
-  ArrowLeft,
+  ArrowRight,
   CheckCircle2,
   Headphones,
   Compass,
@@ -33,6 +34,7 @@ import BaleIcon from "@/assets/icons/bale.webp";
 import { TelegramIcon } from "@/assets/icons/Telegram";
 import { WhatsAppIcon } from "@/assets/icons/WhatsApp";
 import { InstagramIcon } from "@/assets/icons/Instagram";
+import WorkCard from "@/components/works/WorkCard";
 
 // تصاویر
 //TODO make images webp
@@ -164,53 +166,53 @@ const testimonials = [
   },
 ];
 
-const works = [
-  {
-    img: articleInnovation,
-    title: "علی ارغشی",
-    date: "بازتوانی زانو بدون عمل از کهگلویه و بویراحمد",
-  },
-  {
-    img: articleSkills,
-    title: "محمد جعفری",
-    date: "فوتبالیست برای بازتوانی زانو مراجعه کردند بعد از عمل رباط صلیبی و مینیسک",
-  },
-  {
-    img: articleStrategy,
-    title: "حجت اسکینی",
-    date: "آسیب جفت زانو و بازتوانی بعد از عمل جراحی رباط و مینیسک زانوی راست و شکستگی و جراحی کشکک زانوی چپ",
-  },
-  {
-    img: articleStrategy,
-    title: "حجت اسکینی",
-    date: "آسیب جفت زانو و بازتوانی بعد از عمل جراحی رباط و مینیسک زانوی راست و شکستگی و جراحی کشکک زانوی چپ",
-  },
-  {
-    img: articleStrategy,
-    title: "صدرا موسوی",
-    date: "فوتبالیست برای بازتوانی زانو Acl , minisc",
-  },
-  {
-    img: articleStrategy,
-    title: "پیمان کاظمی",
-    date: "بازتوانی زانو از کانادا",
-  },
-  {
-    img: articleStrategy,
-    title: "نیل فراخانی",
-    date: "تمرینات پیش فصل ملی پوش هندبال",
-  },
-  {
-    img: articleStrategy,
-    title: "نسترن فراهانی",
-    date: "تمرینات پیش فصل ملی پوش هندبال",
-  },
-  {
-    img: articleStrategy,
-    title: "علبرضا حیدری",
-    date: " بازتوانی زانو بازیکن حرفه‌ای فوتبال صاحلی",
-  },
-];
+// const works = [
+//   {
+//     img: articleInnovation,
+//     title: "علی ارغشی",
+//     date: "بازتوانی زانو بدون عمل از کهگلویه و بویراحمد",
+//   },
+//   {
+//     img: articleSkills,
+//     title: "محمد جعفری",
+//     date: "فوتبالیست برای بازتوانی زانو مراجعه کردند بعد از عمل رباط صلیبی و مینیسک",
+//   },
+//   {
+//     img: articleStrategy,
+//     title: "حجت اسکینی",
+//     date: "آسیب جفت زانو و بازتوانی بعد از عمل جراحی رباط و مینیسک زانوی راست و شکستگی و جراحی کشکک زانوی چپ",
+//   },
+//   {
+//     img: articleStrategy,
+//     title: "حجت اسکینی",
+//     date: "آسیب جفت زانو و بازتوانی بعد از عمل جراحی رباط و مینیسک زانوی راست و شکستگی و جراحی کشکک زانوی چپ",
+//   },
+//   {
+//     img: articleStrategy,
+//     title: "صدرا موسوی",
+//     date: "فوتبالیست برای بازتوانی زانو Acl , minisc",
+//   },
+//   {
+//     img: articleStrategy,
+//     title: "پیمان کاظمی",
+//     date: "بازتوانی زانو از کانادا",
+//   },
+//   {
+//     img: articleStrategy,
+//     title: "نیل فراخانی",
+//     date: "تمرینات پیش فصل ملی پوش هندبال",
+//   },
+//   {
+//     img: articleStrategy,
+//     title: "نسترن فراهانی",
+//     date: "تمرینات پیش فصل ملی پوش هندبال",
+//   },
+//   {
+//     img: articleStrategy,
+//     title: "علبرضا حیدری",
+//     date: " بازتوانی زانو بازیکن حرفه‌ای فوتبال صاحلی",
+//   },
+// ];
 
 const book = {
   title: "نویسنده کتاب آقای زانو",
@@ -368,7 +370,7 @@ function HeroSection() {
             className="mt-8 flex flex-wrap items-center gap-4"
           >
             {[
-              { href: "https://ble.ir/", icon: BaleIcon, alt: "بله" },
+              { href: "https://ble.ir/mohammad_jamali14", icon: BaleIcon, alt: "بله" },
               {
                 href: "https://t.me/+989132001925",
                 icon: TelegramIcon,
@@ -416,7 +418,7 @@ function HeroSection() {
 
           <div className="mt-10 hidden gap-1 text-primary lg:flex" aria-hidden>
             {[...Array(5)].map((_, i) => (
-              <ArrowLeft
+              <ArrowRight
                 key={i}
                 className={`h-4 w-4 ${i > 0 ? "opacity-" + (70 - i * 15) : ""}`}
               />
@@ -739,7 +741,7 @@ function WorksSection() {
               نگاهی به دستاورد‌های من
             </h2>
           </div>
-          <Link href="#about" className="text-sm font-bold text-primary">
+          <Link href="/works" className="text-sm font-bold text-primary">
             مشاهده همه
           </Link>
         </div>
@@ -749,50 +751,20 @@ function WorksSection() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
           variants={stagger}
-          className="grid gap-4 md:gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
+          className="grid gap-2 md:gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
         >
-          {works.map((work, index) => (
-            <motion.div
-              variants={fadeUp}
-              key={index}
-              className="group relative cursor-pointer overflow-hidden rounded-2xl shadow-lg shadow-primary/5 transition-all duration-300 hover:shadow-xl hover:shadow-primary/20"
-            >
-              <div className="aspect-[3/4] overflow-hidden">
-                <Image
-                  src={work.img}
-                  alt={`${work.title}${work.date ? ` - ${work.date}` : ""}`}
-                  loading="lazy"
-                  width={768}
-                  height={768}
-                  className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
-                />
-              </div>
-
-              {/* Overlay */}
-              <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/70 via-black/20 to-transparent p-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:opacity-0">
-                <h3 className="text-lg font-bold text-white">{work.title}</h3>
-                <p className="mt-1 text-sm text-white/80">{work.date}</p>
-              </div>
-
-              {/* برای موبایل که hover نداریم، overlay رو همیشه نشون میدیم */}
-              <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/60 via-black/10 to-transparent p-5 opacity-100 md:opacity-0">
-                <h3 className="text-base font-bold text-white md:text-lg">
-                  {work.title}
-                </h3>
-                <p className="mt-0.5 text-xs text-white/70 md:mt-1 md:text-sm">
-                  {work.date}
-                </p>
-              </div>
-            </motion.div>
+          {works.slice(0, 9).map((work, index) => (
+            <WorkCard work={work} key={index} />
           ))}
 
-          <motion.div
+          <motion.a
+            href="/works"
             variants={fadeUp}
             className="flex h-full cursor-pointer flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-border bg-primary/5 p-8 text-sm font-bold text-primary transition hover:border-primary/40 hover:bg-primary/10"
           >
             <PlusIcon className="h-8 w-8" />
-            <h6 className="text-lg font-bold">مشاهده بیشتر</h6>
-          </motion.div>
+            <h6 className="text-base md:text-lg font-bold">مشاهده بیشتر</h6>
+          </motion.a>
         </motion.div>
       </div>
     </section>
@@ -801,6 +773,7 @@ function WorksSection() {
 
 // --- BOOK ---
 function BookSection() {
+  
   return (
     <section id="book" className="py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
@@ -834,7 +807,7 @@ function BookSection() {
                   className="inline-flex items-center gap-2 rounded-full bg-accent px-24 py-3 font-bold text-accent-foreground transition hover:brightness-95"
                 >
                   خرید کتاب
-                  <ArrowLeft className="h-4 w-4" />
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>
@@ -1391,7 +1364,7 @@ function ContactSection() {
           className="mt-8 flex flex-wrap items-center justify-center gap-4"
         >
           {[
-            { href: "https://ble.ir/", icon: BaleIcon, alt: "بله" },
+            { href: "https://ble.ir/mohammad_jamali14", icon: BaleIcon, alt: "بله" },
             {
               href: "https://t.me/+989132001925",
               icon: TelegramIcon,
