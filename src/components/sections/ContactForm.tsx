@@ -7,7 +7,7 @@ import { Send, Loader2, AlertCircle, CheckCircle } from "lucide-react";
 
 
 // Server action ایمپورت شود (همان فایل actions/contact.ts)
-import { sendContactEmail } from "@/app/actions/contact";
+import { sendContactEmail } from "@/actions/contact";
 
 function ContactForm() {
   const [formData, setFormData] = useState({
