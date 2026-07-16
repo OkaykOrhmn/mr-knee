@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import 'swiper/css/autoplay';
 import { dana } from "./fonts";
 import Header from "@/components/sections/Header";
 import Footer from "@/components/sections/Footer";

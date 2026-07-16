@@ -1,6 +1,6 @@
 "use client";
 
-import {   works } from "@/data/works";
+import { works } from "@/data/works";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -20,7 +20,11 @@ import {
   Quote,
   Star,
   Calendar,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   fadeUp,
@@ -35,6 +39,7 @@ import { TelegramIcon } from "@/assets/icons/Telegram";
 import { WhatsAppIcon } from "@/assets/icons/WhatsApp";
 import { InstagramIcon } from "@/assets/icons/Instagram";
 import WorkCard from "@/components/works/WorkCard";
+import ContactForm from "@/components/sections/ContactForm";
 
 // تصاویر
 //TODO make images webp
@@ -150,21 +155,97 @@ const services = [
 
 const testimonials = [
   {
-    name: "سروش کلامی",
-    role: "مدیر کسب‌وکار",
-    text: "با راهنمایی‌های تیم بسکوچ، توانستم کسب‌وکارم را به سطح جدیدی برسانم. واقعا توصیه می‌کنم.",
+    name: "پیمان کاظمی",
+    role: "ورزشکار از کانادا",
+    text: "از کانادا برای بازتوانی تخصصی زانو آمدم. بعد از آسیب رباط صلیبی و مینیسک، با تمرینات هدفمند زیر نظر آقای جمالی، امروز بدون درد و با قدرت به تمریناتم برگشتم.",
+    instagramUrl: "https://www.instagram.com/p/DN59QsuiFve/",
   },
   {
-    name: "ملیکا عیدی",
-    role: "کارآفرین",
-    text: "مشاوران دقیق و حرفه‌ای، با راهکارهای کاربردی. در زمان کوتاهی نتیجه گرفتم.",
+    name: "علیرضا حیدری",
+    role: "بازیکن فوتبال ساحلی",
+    text: "ترکیب تمرینات قدرتی، تعادلی و عملکردی، بازگشت من به زمین فوتبال ساحلی را تضمین کرد. هر ورزشکاری که آسیب زانو دارد، باید این برنامه را تجربه کند.",
+    instagramUrl: "https://www.instagram.com/p/DNusaUPWFmQ/",
   },
   {
-    name: "کیانوش رحمانزایی",
-    role: "پارگی زانو ACL",
-    text: "مشاوران دقیق و حرفه‌ای، با راهکارهای کاربردی. در زمان کوتاهی نتیجه گرفتم.",
+    name: "نسترن فراهانی",
+    role: "ملی‌پوش هندبال",
+    text: "تمرینات پیش‌فصل اختصاصی آقای جمالی، من را برای مسابقات بین‌المللی آماده کرد. از استقامت و قدرت گرفته تا پیشگیری از آسیب، همه‌چیز بی‌نقص بود.",
+    instagramUrl: "https://www.instagram.com/p/DNv30Xt0LUJ/",
+  },
+  {
+    name: "حجت اسکینی",
+    role: "بازیکن لیگ برتر هندبال",
+    text: "پس از جراحی رباط و مینیسک زانوی راست و شکستگی کشکک چپ، با برنامه توانبخشی آقای جمالی دوباره روی پاهایم ایستادم. باورکردنی بود!",
+    instagramUrl: "https://www.instagram.com/p/DNaxw24IWgc/",
+  },
+  {
+    name: "علیرضا موسوی",
+    role: "لژیونر هندبال در رومانی",
+    text: "تمرینات پیش‌فصل با آقای جمالی، سطح آمادگی من را برای لیگ اروپا چند برابر کرد. ترکیب قدرتی، پلایومتریک و عملکردی، دقیقاً چیزی بود که نیاز داشتم.",
+    instagramUrl: "https://www.instagram.com/p/DLz1Ic7IOUh/",
+  },
+  {
+    name: "نگین بشارتی",
+    role: "بازیکن لیگ برتر هندبال",
+    text: "چهار ماه پس از جراحی زانو، با تمرینات تخصصی توانبخشی آقای جمالی، امروز بدون ترس و با قدرت کامل به میادین برگشته‌ام.",
+    instagramUrl: "https://www.instagram.com/p/DIHflJZNT6r/",
   },
 ];
+
+// استخراج نظرات واقعی از پست‌ها
+// const testimonials = works
+//   .filter(
+//     (post) =>
+//       post.title &&
+//       post.description &&
+//       (post.category === "بازتوانی زانو" ||
+//         post.category === "بدنسازی و آمادگی")
+//   )
+//   .slice(0, 6) // تعداد دلخواه
+//   .map((post) => {
+//     // تشخیص نقش از توضیحات یا هشتگ‌ها
+//     let role = "ورزشکار حرفه‌ای";
+//     if (post.description.includes("ملی‌پوش")) role = "ملی‌پوش";
+//     else if (post.description.includes("لیگ برتر")) role = "بازیکن لیگ برتر";
+//     else if (post.description.includes("لژیونر")) role = "لژیونر";
+//     else if (post.description.includes("فوتبال")) role = "بازیکن فوتبال";
+//     else if (post.description.includes("هندبال")) role = "بازیکن هندبال";
+//     else if (post.description.includes("جودو")) role = "جودوکار";
+//     else if (post.description.includes("کوه‌نوردی")) role = "کوه‌نورد";
+//     else if (post.description.includes("والیبال")) role = "والیبالیست";
+
+//     // خلاصه‌ای از توضیحات (حداکثر ۱۵۰ کاراکتر)
+//     const shortDesc =
+//       post.description.length > 150
+//         ? post.description.slice(0, 150) + "..."
+//         : post.description;
+
+//     return {
+//       name: post.title,
+//       role: role,
+//       text: shortDesc,
+//       // می‌توان آواتار یا لینک اینستاگرام هم اضافه کرد
+//       instagramUrl: post.instagramUrl,
+//     };
+//   });
+
+// const testimonials = [
+//   {
+//     name: "سروش کلامی",
+//     role: "مدیر کسب‌وکار",
+//     text: "با راهنمایی‌های تیم بسکوچ، توانستم کسب‌وکارم را به سطح جدیدی برسانم. واقعا توصیه می‌کنم.",
+//   },
+//   {
+//     name: "ملیکا عیدی",
+//     role: "کارآفرین",
+//     text: "مشاوران دقیق و حرفه‌ای، با راهکارهای کاربردی. در زمان کوتاهی نتیجه گرفتم.",
+//   },
+//   {
+//     name: "کیانوش رحمانزایی",
+//     role: "پارگی زانو ACL",
+//     text: "مشاوران دقیق و حرفه‌ای، با راهکارهای کاربردی. در زمان کوتاهی نتیجه گرفتم.",
+//   },
+// ];
 
 // const works = [
 //   {
@@ -370,7 +451,11 @@ function HeroSection() {
             className="mt-8 flex flex-wrap items-center gap-4"
           >
             {[
-              { href: "https://ble.ir/mohammad_jamali14", icon: BaleIcon, alt: "بله" },
+              {
+                href: "https://ble.ir/mohammad_jamali14",
+                icon: BaleIcon,
+                alt: "بله",
+              },
               {
                 href: "https://t.me/+989132001925",
                 icon: TelegramIcon,
@@ -773,7 +858,6 @@ function WorksSection() {
 
 // --- BOOK ---
 function BookSection() {
-  
   return (
     <section id="book" className="py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
@@ -841,54 +925,100 @@ function TestimonialsSection() {
           <div className="mb-3 flex items-center justify-center gap-3">
             <span className="h-[2px] w-10 bg-accent" />
             <span className="text-sm font-bold text-accent">
-              درباره ما می‌گویند
+              تجربه‌های واقعی
             </span>
             <span className="h-[2px] w-10 bg-accent" />
           </div>
           <h2 className="text-3xl font-black sm:text-4xl">
-            منتظر تماس شما هستیم!
+            آنچه ورزشکاران می‌گویند
           </h2>
+          <p className="mt-4 text-muted-foreground">
+            نمونه‌هایی از همکاری با ورزشکاران حرفه‌ای و بیماران
+          </p>
         </div>
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={stagger}
-          className="mx-auto grid max-w-7xl gap-6 md:grid-cols-3"
-        >
-          {testimonials.map((t) => (
-            <motion.div
-              variants={fadeUp}
-              key={t.name}
-              className="relative rounded-2xl bg-card p-7 shadow-md ring-1 ring-border"
-            >
-              <Quote className="absolute bottom-5 left-5 h-10 w-10 text-primary/10" />
-              <div className="mb-4 flex items-center gap-3">
-                <div className="grid h-12 w-12 place-items-center rounded-full bg-primary/10 font-black text-primary">
-                  {t.name[0]}
+        {/* Swiper Slider */}
+        <div className="relative px-10">
+          <Swiper
+            modules={[Navigation, Pagination, Autoplay]}
+            spaceBetween={0}
+            slidesPerView={1}
+            direction="horizontal"
+            loop
+            autoplay={{
+              delay: 3000, // مدت زمان بین هر اسلاید (میلی‌ثانیه)
+              disableOnInteraction: false, // پس از کلیک یا کشیدن، اتوپلی متوقف نشود
+            }}
+            navigation={{
+              nextEl: ".testimonial-button-next",
+              prevEl: ".testimonial-button-prev",
+            }}
+            pagination={{
+              clickable: true,
+              el: ".testimonial-pagination",
+              bulletClass: "swiper-pagination-bullet",
+              bulletActiveClass: "swiper-pagination-bullet-active",
+            }}
+            breakpoints={{
+              640: { slidesPerView: 1 },
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+            }}
+            className="pb-12"
+          >
+            {testimonials.map((t) => (
+              <SwiperSlide key={t.name}>
+                <div className="relative h-full rounded-2xl bg-card p-7 my-4 mx-2 shadow-md ring-1 ring-border ">
+                  <Quote className="absolute bottom-5 left-5 h-10 w-10 text-primary/10" />
+                  <div className="mb-4 flex items-center gap-3">
+                    <div className="grid h-12 w-12 place-items-center rounded-full bg-primary/10 font-black text-primary">
+                      {t.name[0]}
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold">{t.name}</div>
+                      <div className="text-xs text-muted-foreground">
+                        {t.role}
+                      </div>
+                    </div>
+                    <div className="ms-auto flex text-accent">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="h-3.5 w-3.5 fill-accent" />
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-sm leading-7 text-muted-foreground line-clamp-3">
+                    {t.text}
+                  </p>
+                  {t.instagramUrl && (
+                    <a
+                      href={t.instagramUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-block text-xs font-medium text-primary hover:underline"
+                    >
+                      مشاهده در اینستاگرام
+                    </a>
+                  )}
                 </div>
-                <div>
-                  <div className="text-sm font-bold">{t.name}</div>
-                  <div className="text-xs text-muted-foreground">{t.role}</div>
-                </div>
-                <div className="ms-auto flex text-accent">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-3.5 w-3.5 fill-accent" />
-                  ))}
-                </div>
-              </div>
-              <p className="text-sm leading-7 text-muted-foreground">
-                {t.text}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          {/* نویگیشن سفارشی */}
+          <button className="testimonial-button-prev absolute -right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-primary p-2 text-primary-foreground shadow-lg transition hover:bg-[color:var(--color-brand-dark)] mr-4 md:mr-0">
+            <ChevronRight className="h-5 w-5" />
+          </button>
+          <button className="testimonial-button-next absolute -left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-primary p-2 text-primary-foreground shadow-lg transition hover:bg-[color:var(--color-brand-dark)] ml-4 md:ml-0">
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+
+          {/* پیجینیشن */}
+          <div className="testimonial-pagination mt-8 flex justify-center gap-2" />
+        </div>
       </div>
     </section>
   );
 }
-
 // --- TREATMENT PROCESS ---
 function TreatmentProcessSection() {
   const steps = [
@@ -1361,10 +1491,14 @@ function ContactSection() {
         </div>
         <motion.div
           variants={fadeUp}
-          className="mt-8 flex flex-wrap items-center justify-center gap-4"
+          className="my-8 flex flex-wrap items-center justify-center gap-4"
         >
           {[
-            { href: "https://ble.ir/mohammad_jamali14", icon: BaleIcon, alt: "بله" },
+            {
+              href: "https://ble.ir/mohammad_jamali14",
+              icon: BaleIcon,
+              alt: "بله",
+            },
             {
               href: "https://t.me/+989132001925",
               icon: TelegramIcon,
@@ -1402,6 +1536,7 @@ function ContactSection() {
             </Link>
           ))}
         </motion.div>
+        <ContactForm />
       </div>
     </section>
   );
